@@ -1,23 +1,25 @@
 import { Star } from "./Star";
+import { useColors } from "./ColorProvider";
 
 type Props = {
+  id: string;
   totalStars?: number;
   selectedStars: number;
-  onRate: (rateNum: number) => void;
 };
 
 export const StarRating = ({
+  id,
   totalStars = 5,
   selectedStars = 0,
-  onRate,
 }: Props) => {
+  const { rateColor } = useColors();
   return (
     <div>
       {[...Array(totalStars)].map((_, i) => (
         <Star
           key={i}
           selected={selectedStars > i}
-          onSelect={() => onRate(i + 1)}
+          onSelect={() => rateColor(id, i + 1)}
         />
       ))}
       <p>

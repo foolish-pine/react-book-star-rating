@@ -1,4 +1,5 @@
 import { Color } from "./Color";
+import { useColors } from "./ColorProvider";
 
 type Color = {
   id: string;
@@ -7,28 +8,14 @@ type Color = {
   rating: number;
 };
 
-type Props = {
-  colors: Color[];
-  onRemoveColor: (id: string) => void;
-  onRateColor: (id: string, rating: number) => void;
-};
-
-export const ColorList = ({
-  colors = [],
-  onRemoveColor,
-  onRateColor,
-}: Props) => {
+export const ColorList = () => {
+  const { colors } = useColors();
   if (!colors.length) return <div>No Colors Listed.</div>;
 
   return (
     <div>
-      {colors.map((color) => (
-        <Color
-          key={color.id}
-          {...color}
-          onRemove={onRemoveColor}
-          onRate={onRateColor}
-        />
+      {colors.map((color: Color) => (
+        <Color key={color.id} {...color} />
       ))}
     </div>
   );
